@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password
 # Create your views here.
 
 def index_gender(request):
-    genders = Gender.objects.all() # SELECT * FROM genders
+    genders = Gender.objects.all()
 
     context = {
         'genders': genders
@@ -19,12 +19,12 @@ def create_gender(request):
 
 def store_gender(request):
     gender = request.POST.get('gender')
-    Gender.objects.create(gender=gender) # INSERT INTO genders(gender) VALUES(gender)
+    Gender.objects.create(gender=gender)
     messages.success(request, 'Gender successfully saved.')
     return redirect('/genders')
 
 def show_gender(request, gender_id):
-    gender = Gender.objects.get(pk=gender_id) # SELECT * FROM genders WHERE gender_id = gender_id
+    gender = Gender.objects.get(pk=gender_id)
 
     context = {
         'gender': gender,
@@ -33,7 +33,7 @@ def show_gender(request, gender_id):
     return render(request, 'gender/show.html', context)
 
 def edit_gender(request, gender_id):
-    gender = Gender.objects.get(pk=gender_id) # SELECT * FROM genders WHERE gender_id = gender_id
+    gender = Gender.objects.get(pk=gender_id)
 
     context = {
         'gender': gender,
@@ -44,13 +44,13 @@ def edit_gender(request, gender_id):
 def update_gender(request, gender_id):
     gender = request.POST.get('gender')
     
-    Gender.objects.filter(pk=gender_id).update(gender=gender) # UPDATE genders SET gender = gender WHERE gender_id = gender_id
+    Gender.objects.filter(pk=gender_id).update(gender=gender)
     messages.success(request, 'Gender successfully updated.')
 
     return redirect('/genders')
 
 def delete_gender(request, gender_id):
-    gender = Gender.objects.get(pk=gender_id) # SELECT * FROM genders WHERE gender_id = gender_id
+    gender = Gender.objects.get(pk=gender_id) 
 
     context = {
         'gender': gender,
@@ -59,13 +59,13 @@ def delete_gender(request, gender_id):
     return render(request, 'gender/delete.html', context)
 
 def destroy_gender(request, gender_id):
-    Gender.objects.filter(pk=gender_id).delete() # DELETE FROM genders WHERE gender_id = gender_id
+    Gender.objects.filter(pk=gender_id).delete()
     messages.success(request, 'Gender successfully deleted.')
 
     return redirect('/genders')
 
 def index_user(request):
-    users = user.objects.select_related('gender') # SELECT * FROM users LEFT JOIN genders ON users.gender_id = genders.gender_id
+    users = user.objects.select_related('gender')
 
     context = {
         'users': users,
@@ -74,7 +74,7 @@ def index_user(request):
     return render(request, 'user/index.html', context)
 
 def create_user(request):
-    genders = Gender.objects.all() # SELECT * FROM genders
+    genders = Gender.objects.all()
 
     context = {
         'genders': genders
@@ -101,7 +101,7 @@ def store_user(request):
 
         messages.success(request, 'User successfully saved.')
 
-        return redirect('/users')
+        return redirect('/')
     else:
         messages.error(request, 'Password do not match.')
         return redirect('/user/create')
