@@ -11,10 +11,10 @@ class Gender(models.Model):
 	class Meta:
 	    db_table = 'genders'
 
-def __str__(self):
-		return  self.gender
+	def __str__(self):
+		return self.gender
 
-class user(models.Model):
+class User(models.Model):
 	user_id = models.BigAutoField(primary_key=True, blank=False)
 	first_name = models.CharField(max_length=55, blank=False)
 	middle_name = models.CharField(max_length=55, blank=True)
